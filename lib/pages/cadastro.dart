@@ -14,7 +14,8 @@ class Cadastro extends StatefulWidget
 
 class _CadastroState extends State<Cadastro>
 {
-  final controller= FormulariosController();
+  final controller= FormulariosController()
+    ..showhideSenha= true;
 
   @override
   Widget build(BuildContext context)
@@ -31,6 +32,17 @@ class _CadastroState extends State<Cadastro>
           children: <Widget>
           [
             SizedBox(width: 128, height: 128, child: Icon(Icons.person),),
+            Observer
+            (
+              builder: (_)=> input
+              (
+                keyboardType: TextInputType.text,
+                prefixIcon: Icon(Icons.person_outline,),
+                hintText: "nome",
+                onChanged: controller.mudarNome,
+                errorText: controller.validarNome,
+              ),
+            ),
             SizedBox(height: 20,),
             //Padding(padding: EdgeInsets.only(top: 20, bottom: 8), child: ),
             Observer
@@ -44,23 +56,57 @@ class _CadastroState extends State<Cadastro>
                 errorText: controller.validarUsername,
               ),
             ),
+            //Observer(builder: (_)=> Text(controller.username)),
             SizedBox(height: 20,),
             //Padding(padding: EdgeInsets.only(bottom: 0), child: ),
-            /*Observer
+            Observer
             (
-              builder: (_)=> InputSenha
+              builder: (_)=> inputSenha
               (
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: Icon(Icons.lock,),
-                coneTextoHide: Icon(Icons.visibility_off,),
-                coneTextoShow: Icon(Icons.visibility,),
-                ocultarSenha: true,
+                iconeTextoHide: Icon(Icons.visibility_off,),
+                iconeTextoShow: Icon(Icons.visibility,),
                 hintText: "senha",
+                onChanged: controller.mudarSenha,
+                errorText: controller.validarSenhaCadastro,
+                //ocultarSenha: controller.ocultarSenha(true),
+                ocultarSenha: true,
+                showhideSenha: controller.showhideSenha,
+                onPressed: controller.alternarVisibilidadeSenha,
               ),
-            ),*/
+            ),
+            //Observer(builder: (_)=> Text("ocultarSenha: ${controller.b}")),
+            //Observer(builder: (_)=> Text("focultarSenha: ${controller.ocultarSenha.toString()}")),
+            SizedBox(height: 20,),
+            Observer
+            (
+              builder: (_)=> inputSenha
+              (
+                keyboardType: TextInputType.visiblePassword,
+                prefixIcon: Icon(Icons.lock,),
+                iconeTextoHide: Icon(Icons.visibility_off,),
+                iconeTextoShow: Icon(Icons.visibility,),
+                hintText: "confirmar senha",
+                onChanged: controller.mudarConfirmarSenha,
+                errorText: controller.validarConfirmarSenhaCadastro,
+                //ocultarSenha: controller.ocultarSenha(true),
+                ocultarSenha: true,
+                showhideSenha: controller.showhideSenha,
+                onPressed: controller.alternarVisibilidadeSenha,
+              ),
+            ),
+            Observer
+            (
+              builder: (_)=> RaisedButton
+              (
+                onPressed: controller.cadastrareValido ? (){} : null,
+                child: Text("CADASTRAR"),
+              ),
+            ),
           ]
         )
       )
     );
   }
-} 
+}

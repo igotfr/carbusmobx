@@ -67,6 +67,15 @@ class _LoginState extends State<Login>
             ),
             //Observer(builder: (_)=> Text("ocultarSenha: ${controller.b}")),
             //Observer(builder: (_)=> Text("focultarSenha: ${controller.ocultarSenha.toString()}")),
+            SizedBox(height: 20,),
+            Observer
+            (
+              builder: (_)=> RaisedButton
+              (
+                onPressed: controller.logineValido ? (){} : null,
+                child: Text("LOGAR"),
+              ),
+            ),
           ]
         )
       )

@@ -10,6 +10,12 @@ class FormulariosController= _FormulariosControllerBase with _$FormulariosContro
 abstract class _FormulariosControllerBase with Store
 {
   @observable
+  String nome= '';
+
+  @action
+  void mudarNome(String nome)=> this.nome= nome;
+
+  @observable
   String username= '';
 
   @action
@@ -20,6 +26,12 @@ abstract class _FormulariosControllerBase with Store
 
   @action
   void mudarSenha(String nsenha)=> this.senha= nsenha;
+
+  @observable
+  String confirmarSenha= '';
+
+  @action
+  void mudarConfirmarSenha(String confirmarSenha)=> this.confirmarSenha= confirmarSenha;
 
   @observable
   bool showhideSenha;
@@ -78,6 +90,14 @@ abstract class _FormulariosControllerBase with Store
   }*/
 
 
+  String validarNome()
+  {
+    if ( this.nome == null || this.nome.isEmpty )
+      return "campo obrigatório";
+
+    return null;
+  }
+
   String validarUsername()
   {
     if ( this.username == null || this.username.isEmpty )
@@ -95,4 +115,34 @@ abstract class _FormulariosControllerBase with Store
 
     return null;
   }
+
+  String validarSenhaCadastro()
+  {
+    if ( this.senha == null || this.senha.isEmpty )
+      return "campo obrigatório";
+    else if ( this.senha.length < 3 )
+      return "senha deve ter no mínimo 3 caracteres";
+    else if ( this.senha != this.confirmarSenha )
+      return "senha e confirmação devem ser iguais";
+
+    return null;
+  }
+
+  String validarConfirmarSenhaCadastro()
+  {
+    if ( this.confirmarSenha == null || this.confirmarSenha.isEmpty )
+      return "campo obrigatório";
+    else if ( this.confirmarSenha.length < 3 )
+      return "senha deve ter no mínimo 3 caracteres";
+    else if ( this.senha != this.confirmarSenha )
+      return "senha e confirmação devem ser iguais";
+
+    return null;
+  }
+
+  @computed
+  bool get logineValido=> validarUsername() == null && validarSenha() == null;
+
+  @computed
+  bool get cadastrareValido=> validarNome() == null && validarUsername() == null && validarSenhaCadastro() == null && validarConfirmarSenhaCadastro() == null;
 }

@@ -9,6 +9,30 @@ part of 'formulariosController.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$FormulariosController on _FormulariosControllerBase, Store {
+  Computed<bool> _$logineValidoComputed;
+
+  @override
+  bool get logineValido =>
+      (_$logineValidoComputed ??= Computed<bool>(() => super.logineValido))
+          .value;
+
+  final _$nomeAtom = Atom(name: '_FormulariosControllerBase.nome');
+
+  @override
+  String get nome {
+    _$nomeAtom.context.enforceReadPolicy(_$nomeAtom);
+    _$nomeAtom.reportObserved();
+    return super.nome;
+  }
+
+  @override
+  set nome(String value) {
+    _$nomeAtom.context.conditionallyRunInAction(() {
+      super.nome = value;
+      _$nomeAtom.reportChanged();
+    }, _$nomeAtom, name: '${_$nomeAtom.name}_set');
+  }
+
   final _$usernameAtom = Atom(name: '_FormulariosControllerBase.username');
 
   @override
@@ -43,6 +67,24 @@ mixin _$FormulariosController on _FormulariosControllerBase, Store {
     }, _$senhaAtom, name: '${_$senhaAtom.name}_set');
   }
 
+  final _$confirmarSenhaAtom =
+      Atom(name: '_FormulariosControllerBase.confirmarSenha');
+
+  @override
+  String get confirmarSenha {
+    _$confirmarSenhaAtom.context.enforceReadPolicy(_$confirmarSenhaAtom);
+    _$confirmarSenhaAtom.reportObserved();
+    return super.confirmarSenha;
+  }
+
+  @override
+  set confirmarSenha(String value) {
+    _$confirmarSenhaAtom.context.conditionallyRunInAction(() {
+      super.confirmarSenha = value;
+      _$confirmarSenhaAtom.reportChanged();
+    }, _$confirmarSenhaAtom, name: '${_$confirmarSenhaAtom.name}_set');
+  }
+
   final _$showhideSenhaAtom =
       Atom(name: '_FormulariosControllerBase.showhideSenha');
 
@@ -63,6 +105,17 @@ mixin _$FormulariosController on _FormulariosControllerBase, Store {
 
   final _$_FormulariosControllerBaseActionController =
       ActionController(name: '_FormulariosControllerBase');
+
+  @override
+  void mudarNome(String nome) {
+    final _$actionInfo =
+        _$_FormulariosControllerBaseActionController.startAction();
+    try {
+      return super.mudarNome(nome);
+    } finally {
+      _$_FormulariosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void mudarUsername(String nusername) {
@@ -87,6 +140,17 @@ mixin _$FormulariosController on _FormulariosControllerBase, Store {
   }
 
   @override
+  void mudarConfirmarSenha(String confirmarSenha) {
+    final _$actionInfo =
+        _$_FormulariosControllerBaseActionController.startAction();
+    try {
+      return super.mudarConfirmarSenha(confirmarSenha);
+    } finally {
+      _$_FormulariosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void alternarVisibilidadeSenha() {
     final _$actionInfo =
         _$_FormulariosControllerBaseActionController.startAction();
@@ -100,7 +164,7 @@ mixin _$FormulariosController on _FormulariosControllerBase, Store {
   @override
   String toString() {
     final string =
-        'username: ${username.toString()},senha: ${senha.toString()},showhideSenha: ${showhideSenha.toString()}';
+        'nome: ${nome.toString()},username: ${username.toString()},senha: ${senha.toString()},confirmarSenha: ${confirmarSenha.toString()},showhideSenha: ${showhideSenha.toString()},logineValido: ${logineValido.toString()}';
     return '{$string}';
   }
 }
